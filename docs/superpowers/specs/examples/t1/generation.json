@@ -1,0 +1,432 @@
+{
+  "data_kind": "synthetic_review_data",
+  "interface_version": "0.1",
+  "constraint_sets": [
+    {
+      "constraint_set_id": "t1-online-01",
+      "frame": {"id": "plate-xyz", "origin_mm": [0, 0, 0], "axes": {"x": [1, 0, 0], "y": [0, 1, 0], "z": [0, 0, 1]}},
+      "selectors": {
+        "body": {"kind": "solid", "expected_count": 1, "where": {}},
+        "bore": {
+          "kind": "face",
+          "expected_count": 1,
+          "where": {
+            "geometry": "CYLINDER",
+            "direction": {"kind": "axis", "vector": [0, 0, 1], "max_angle_deg": 0.1}
+          }
+        },
+        "left": {
+          "kind": "face",
+          "expected_count": 1,
+          "where": {
+            "geometry": "PLANE",
+            "direction": {"kind": "normal", "vector": [1, 0, 0], "max_angle_deg": 0.1},
+            "at_extreme": {"axis": "x", "side": "min", "within_mm": 0.05}
+          }
+        },
+        "lower": {
+          "kind": "face",
+          "expected_count": 1,
+          "where": {
+            "geometry": "PLANE",
+            "direction": {"kind": "normal", "vector": [0, 1, 0], "max_angle_deg": 0.1},
+            "at_extreme": {"axis": "y", "side": "min", "within_mm": 0.05}
+          }
+        },
+        "bottom": {
+          "kind": "face",
+          "expected_count": 1,
+          "where": {
+            "geometry": "PLANE",
+            "direction": {"kind": "normal", "vector": [0, 0, 1], "max_angle_deg": 0.1},
+            "at_extreme": {"axis": "z", "side": "min", "within_mm": 0.05}
+          }
+        },
+        "top": {
+          "kind": "face",
+          "expected_count": 1,
+          "where": {
+            "geometry": "PLANE",
+            "direction": {"kind": "normal", "vector": [0, 0, 1], "max_angle_deg": 0.1},
+            "at_extreme": {"axis": "z", "side": "max", "within_mm": 0.05}
+          }
+        }
+      },
+      "derived": {
+        "t1.min_clear_diameter": {
+          "unit": "mm",
+          "rule_id": "diameter_lower_limit",
+          "depends_on": ["parameters_mm.diameter", "constraints.diameter.criterion.tolerance"]
+        }
+      },
+      "constraints": [
+        {
+          "id": "length",
+          "statement": "板长沿 +X",
+          "source": "user_confirmed",
+          "unit": "mm",
+          "criterion": {"mode": "within", "value": {"param": "length"}, "tolerance": 0.01},
+          "measurement": {"id": "projected_span", "args": {"target": {"selector": "body"}, "direction": [1, 0, 0]}}
+        },
+        {
+          "id": "width",
+          "statement": "板宽沿 +Y",
+          "source": "user_confirmed",
+          "unit": "mm",
+          "criterion": {"mode": "within", "value": {"param": "width"}, "tolerance": 0.01},
+          "measurement": {"id": "projected_span", "args": {"target": {"selector": "body"}, "direction": [0, 1, 0]}}
+        },
+        {
+          "id": "thickness",
+          "statement": "板厚沿 +Z",
+          "source": "user_confirmed",
+          "unit": "mm",
+          "criterion": {"mode": "within", "value": {"param": "thickness"}, "tolerance": 0.01},
+          "measurement": {"id": "projected_span", "args": {"target": {"selector": "body"}, "direction": [0, 0, 1]}}
+        },
+        {
+          "id": "diameter",
+          "statement": "沿 +Z 的通孔直径",
+          "source": "user_confirmed",
+          "unit": "mm",
+          "criterion": {"mode": "within", "value": {"param": "diameter"}, "tolerance": 0.01},
+          "measurement": {"id": "diameter", "args": {"target": {"selector": "bore"}}}
+        },
+        {
+          "id": "hole_x",
+          "statement": "孔轴线距左板边",
+          "source": "user_confirmed",
+          "unit": "mm",
+          "criterion": {"mode": "within", "value": {"param": "hole_x"}, "tolerance": 0.01},
+          "measurement": {
+            "id": "axis_plane_distance",
+            "args": {"target": {"selector": "bore"}, "datum": {"selector": "left"}}
+          }
+        },
+        {
+          "id": "hole_y",
+          "statement": "孔轴线距下板边",
+          "source": "user_confirmed",
+          "unit": "mm",
+          "criterion": {"mode": "within", "value": {"param": "hole_y"}, "tolerance": 0.01},
+          "measurement": {
+            "id": "axis_plane_distance",
+            "args": {"target": {"selector": "bore"}, "datum": {"selector": "lower"}}
+          }
+        },
+        {
+          "id": "through_hole",
+          "statement": "两开口邻接孔壁，且全厚度贯通无材料遮挡",
+          "source": "user_confirmed",
+          "unit": "bool",
+          "criterion": {"mode": "is_true"},
+          "measurement": {
+            "id": "through_hole",
+            "args": {
+              "target": {"selector": "bore"},
+              "entry": {"selector": "bottom"},
+              "exit": {"selector": "top"},
+              "min_clear_diameter": {"derived": "t1.min_clear_diameter"}
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "snapshots": [
+    {
+      "snapshot_id": "snap-01",
+      "session_id": "session-01",
+      "run_id": "run-01",
+      "confirmation_id": "confirm-01",
+      "base_version_id": null,
+      "base_snapshot_id": null,
+      "parameters_mm": {"length": 80, "width": 50, "thickness": 8, "diameter": 10, "hole_x": 20, "hole_y": 15},
+      "constraint_set_id": "t1-online-01",
+      "requirements": [
+        {
+          "id": "req-plate",
+          "turn_id": "turn-01",
+          "quote": "80×50×8 的板",
+          "interpretation": "矩形板长/宽/厚为 80/50/8 mm",
+          "constraint_ids": ["length", "width", "thickness"]
+        },
+        {
+          "id": "req-through",
+          "turn_id": "turn-01",
+          "quote": "左边开个通孔",
+          "interpretation": "一处偏置通孔，沿 +Z 贯穿",
+          "constraint_ids": ["hole_x", "hole_y", "through_hole"]
+        },
+        {
+          "id": "req-datum",
+          "turn_id": "turn-03",
+          "quote": "尺寸都用 mm；以底面左下角为测量基准，沿 +Z 贯穿",
+          "interpretation": "长度单位 mm；沿板长、板宽取 +X、+Y，沿板厚取 +Z，以左/下边作为孔位基准",
+          "constraint_ids": ["length", "width", "thickness", "diameter", "hole_x", "hole_y", "through_hole"]
+        },
+        {
+          "id": "req-position",
+          "turn_id": "turn-03",
+          "quote": "孔心距左边 20 mm、距下边 15 mm",
+          "interpretation": "两项孔心距分别以左边、下边为基准",
+          "constraint_ids": ["hole_x", "hole_y"]
+        },
+        {
+          "id": "req-diameter",
+          "turn_id": "turn-03",
+          "quote": "孔径 10 mm",
+          "interpretation": "直径 10 mm，净空直径按孔径下限派生",
+          "constraint_ids": ["diameter", "through_hole"]
+        }
+      ]
+    },
+    {
+      "snapshot_id": "snap-02",
+      "session_id": "session-01",
+      "run_id": "run-02",
+      "confirmation_id": "confirm-02",
+      "base_version_id": "v1",
+      "base_snapshot_id": "snap-01",
+      "parameters_mm": {"length": 80, "width": 50, "thickness": 8, "diameter": 14, "hole_x": 20, "hole_y": 15},
+      "constraint_set_id": "t1-online-01",
+      "requirements": [
+        {
+          "id": "req-plate",
+          "turn_id": "turn-01",
+          "quote": "80×50×8 的板",
+          "interpretation": "矩形板长/宽/厚为 80/50/8 mm",
+          "constraint_ids": ["length", "width", "thickness"]
+        },
+        {
+          "id": "req-through",
+          "turn_id": "turn-01",
+          "quote": "左边开个通孔",
+          "interpretation": "一处偏置通孔，沿 +Z 贯穿",
+          "constraint_ids": ["hole_x", "hole_y", "through_hole"]
+        },
+        {
+          "id": "req-datum",
+          "turn_id": "turn-03",
+          "quote": "尺寸都用 mm；以底面左下角为测量基准，沿 +Z 贯穿",
+          "interpretation": "长度单位 mm；沿板长、板宽取 +X、+Y，沿板厚取 +Z，以左/下边作为孔位基准",
+          "constraint_ids": ["length", "width", "thickness", "diameter", "hole_x", "hole_y", "through_hole"]
+        },
+        {
+          "id": "req-position",
+          "turn_id": "turn-03",
+          "quote": "孔心距左边 20 mm、距下边 15 mm",
+          "interpretation": "两项孔心距分别以左边、下边为基准",
+          "constraint_ids": ["hole_x", "hole_y"]
+        },
+        {
+          "id": "req-diameter",
+          "turn_id": "turn-04",
+          "quote": "只把孔径改成 14 mm",
+          "interpretation": "只改孔径至 14 mm，重算净空直径，其余约束继承",
+          "constraint_ids": ["diameter", "through_hole"]
+        }
+      ]
+    },
+    {
+      "snapshot_id": "snap-03",
+      "session_id": "session-01",
+      "run_id": "run-03",
+      "confirmation_id": "confirm-03",
+      "base_version_id": "v2",
+      "base_snapshot_id": "snap-02",
+      "parameters_mm": {"length": 80, "width": 50, "thickness": 8, "diameter": 14, "hole_x": 20, "hole_y": 15},
+      "constraint_set_id": "t1-online-01",
+      "requirements": [
+        {
+          "id": "req-plate",
+          "turn_id": "turn-01",
+          "quote": "80×50×8 的板",
+          "interpretation": "矩形板长/宽/厚为 80/50/8 mm",
+          "constraint_ids": ["length", "width", "thickness"]
+        },
+        {
+          "id": "req-through",
+          "turn_id": "turn-01",
+          "quote": "左边开个通孔",
+          "interpretation": "一处偏置通孔，沿 +Z 贯穿",
+          "constraint_ids": ["hole_x", "hole_y", "through_hole"]
+        },
+        {
+          "id": "req-datum",
+          "turn_id": "turn-03",
+          "quote": "尺寸都用 mm；以底面左下角为测量基准，沿 +Z 贯穿",
+          "interpretation": "长度单位 mm；沿板长、板宽取 +X、+Y，沿板厚取 +Z，以左/下边作为孔位基准",
+          "constraint_ids": ["length", "width", "thickness", "diameter", "hole_x", "hole_y", "through_hole"]
+        },
+        {
+          "id": "req-position",
+          "turn_id": "turn-03",
+          "quote": "孔心距左边 20 mm、距下边 15 mm",
+          "interpretation": "两项孔心距分别以左边、下边为基准",
+          "constraint_ids": ["hole_x", "hole_y"]
+        },
+        {
+          "id": "req-diameter",
+          "turn_id": "turn-04",
+          "quote": "只把孔径改成 14 mm",
+          "interpretation": "只改孔径至 14 mm，重算净空直径，其余约束继承",
+          "constraint_ids": ["diameter", "through_hole"]
+        },
+        {
+          "id": "req-rebuild",
+          "turn_id": "turn-05",
+          "quote": "按当前已验收版的约束重建一次，所有尺寸和孔位不变。",
+          "interpretation": "重建同一确认几何，保留全部尺寸和通孔约束",
+          "constraint_ids": ["length", "width", "thickness", "diameter", "hole_x", "hole_y", "through_hole"]
+        }
+      ]
+    }
+  ],
+  "plans": [
+    {
+      "key": {"run_id": "run-01", "attempt": 1, "snapshot_id": "snap-01", "plan_id": "plan-01-1"},
+      "tool_schema_id": "t1-tools-v0.1",
+      "steps": [
+        {
+          "id": "profile",
+          "tool_id": "make_rectangle_face",
+          "args": {"length": {"param": "length"}, "width": {"param": "width"}}
+        },
+        {
+          "id": "plate",
+          "tool_id": "extrude",
+          "args": {"profile": {"step": "profile"}, "distance": {"param": "thickness"}}
+        },
+        {
+          "id": "cutter",
+          "tool_id": "make_cylinder",
+          "args": {
+            "diameter": {"param": "diameter"},
+            "x": {"param": "hole_x"},
+            "y": {"param": "hole_y"},
+            "plate_thickness": {"param": "thickness"}
+          }
+        },
+        {
+          "id": "result",
+          "tool_id": "cut",
+          "args": {"target": {"step": "plate"}, "tool": {"step": "cutter"}}
+        }
+      ],
+      "result_step_id": "result",
+      "repair_of_attempt": null
+    },
+    {
+      "key": {"run_id": "run-02", "attempt": 1, "snapshot_id": "snap-02", "plan_id": "plan-02-1"},
+      "tool_schema_id": "t1-tools-v0.1",
+      "steps": [
+        {
+          "id": "profile",
+          "tool_id": "make_rectangle_face",
+          "args": {"length": {"param": "length"}, "width": {"param": "width"}}
+        },
+        {
+          "id": "plate",
+          "tool_id": "extrude",
+          "args": {"profile": {"step": "profile"}, "distance": {"param": "thickness"}}
+        },
+        {
+          "id": "cutter",
+          "tool_id": "make_cylinder",
+          "args": {
+            "diameter": {"param": "diameter"},
+            "x": {"param": "hole_x"},
+            "y": {"param": "hole_y"},
+            "plate_thickness": {"param": "thickness"}
+          }
+        },
+        {
+          "id": "result",
+          "tool_id": "cut",
+          "args": {"target": {"step": "plate"}, "tool": {"step": "cutter"}}
+        }
+      ],
+      "result_step_id": "result",
+      "repair_of_attempt": null
+    },
+    {
+      "key": {"run_id": "run-03", "attempt": 1, "snapshot_id": "snap-03", "plan_id": "plan-03-1"},
+      "tool_schema_id": "t1-tools-v0.1",
+      "steps": [
+        {
+          "id": "profile",
+          "tool_id": "make_rectangle_face",
+          "args": {"length": {"param": "length"}, "width": {"param": "width"}}
+        },
+        {
+          "id": "plate",
+          "tool_id": "extrude",
+          "args": {"profile": {"step": "profile"}, "distance": {"param": "thickness"}}
+        },
+        {
+          "id": "cutter",
+          "tool_id": "make_cylinder",
+          "args": {
+            "diameter": {"param": "diameter"},
+            "x": {"param": "hole_x"},
+            "y": {"param": "hole_y"},
+            "plate_thickness": {"param": "thickness"}
+          }
+        },
+        {
+          "id": "result",
+          "tool_id": "cut",
+          "args": {"target": {"step": "plate"}, "tool": {"step": "cutter"}}
+        }
+      ],
+      "result_step_id": "result",
+      "repair_of_attempt": null
+    },
+    {
+      "key": {"run_id": "run-03", "attempt": 2, "snapshot_id": "snap-03", "plan_id": "plan-03-2"},
+      "tool_schema_id": "t1-tools-v0.1",
+      "steps": [
+        {
+          "id": "cutter",
+          "tool_id": "make_cylinder",
+          "args": {
+            "diameter": {"param": "diameter"},
+            "x": {"param": "hole_x"},
+            "y": {"param": "hole_y"},
+            "plate_thickness": {"param": "thickness"}
+          }
+        },
+        {
+          "id": "profile",
+          "tool_id": "make_rectangle_face",
+          "args": {"length": {"param": "length"}, "width": {"param": "width"}}
+        },
+        {
+          "id": "plate",
+          "tool_id": "extrude",
+          "args": {"profile": {"step": "profile"}, "distance": {"param": "thickness"}}
+        },
+        {
+          "id": "result",
+          "tool_id": "cut",
+          "args": {"target": {"step": "plate"}, "tool": {"step": "cutter"}}
+        }
+      ],
+      "result_step_id": "result",
+      "repair_of_attempt": 1
+    }
+  ],
+  "offline_setup": [
+    {
+      "case_id": "T1-off-target",
+      "key": {"run_id": "run-03", "attempt": 1, "snapshot_id": "snap-03", "plan_id": "plan-03-1"},
+      "parameter_override_mm": {"hole_x": 25}
+    },
+    {
+      "case_id": "T1-off-target",
+      "key": {"run_id": "run-03", "attempt": 2, "snapshot_id": "snap-03", "plan_id": "plan-03-2"},
+      "parameter_override_mm": {"hole_x": 25}
+    }
+  ]
+}

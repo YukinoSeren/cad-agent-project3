@@ -1,0 +1,148 @@
+{
+  "sca": "2.3.0.post1",
+  "python": "3.12.13",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "absolute_tolerance_mm": 0.01,
+  "cases": [
+    {
+      "measured_mm": {
+        "length": 80.0,
+        "width": 50.0,
+        "thickness": 8.0,
+        "diameter": 10.0,
+        "hole_x": 20.0,
+        "hole_y": 15.0
+      },
+      "deviation_mm": {
+        "length": 0.0,
+        "width": 0.0,
+        "thickness": 0.0,
+        "diameter": 0.0,
+        "hole_x": 0.0,
+        "hole_y": 0.0
+      },
+      "geometry_checks": {
+        "valid": true,
+        "single_solid": true,
+        "single_cylindrical_wall": true,
+        "through_hole": true
+      },
+      "failed_checks": [],
+      "accepted": true,
+      "case": "before",
+      "target_mm": {
+        "length": 80,
+        "width": 50,
+        "thickness": 8,
+        "diameter": 10,
+        "hole_x": 20,
+        "hole_y": 15
+      },
+      "model_inputs_mm": {
+        "length": 80,
+        "width": 50,
+        "thickness": 8,
+        "diameter": 10,
+        "hole_x": 20,
+        "hole_y": 15
+      },
+      "volume_mm3": 31371.681469282106,
+      "elapsed_s": 0.1815,
+      "matches_expected_verdict": true
+    },
+    {
+      "measured_mm": {
+        "length": 80.0,
+        "width": 50.0,
+        "thickness": 8.0,
+        "diameter": 14.0,
+        "hole_x": 20.0,
+        "hole_y": 15.0
+      },
+      "deviation_mm": {
+        "length": 0.0,
+        "width": 0.0,
+        "thickness": 0.0,
+        "diameter": 0.0,
+        "hole_x": 0.0,
+        "hole_y": 0.0
+      },
+      "geometry_checks": {
+        "valid": true,
+        "single_solid": true,
+        "single_cylindrical_wall": true,
+        "through_hole": true
+      },
+      "failed_checks": [],
+      "accepted": true,
+      "case": "after",
+      "target_mm": {
+        "length": 80,
+        "width": 50,
+        "thickness": 8,
+        "diameter": 14,
+        "hole_x": 20,
+        "hole_y": 15
+      },
+      "model_inputs_mm": {
+        "length": 80,
+        "width": 50,
+        "thickness": 8,
+        "diameter": 14,
+        "hole_x": 20,
+        "hole_y": 15
+      },
+      "volume_mm3": 30768.49567979288,
+      "elapsed_s": 0.0698,
+      "matches_expected_verdict": true
+    },
+    {
+      "measured_mm": {
+        "length": 80.0,
+        "width": 50.0,
+        "thickness": 8.0,
+        "diameter": 14.0,
+        "hole_x": 25.0,
+        "hole_y": 15.0
+      },
+      "deviation_mm": {
+        "length": 0.0,
+        "width": 0.0,
+        "thickness": 0.0,
+        "diameter": 0.0,
+        "hole_x": 5.0,
+        "hole_y": 0.0
+      },
+      "geometry_checks": {
+        "valid": true,
+        "single_solid": true,
+        "single_cylindrical_wall": true,
+        "through_hole": true
+      },
+      "failed_checks": [
+        "hole_x"
+      ],
+      "accepted": false,
+      "case": "off_target",
+      "target_mm": {
+        "length": 80,
+        "width": 50,
+        "thickness": 8,
+        "diameter": 14,
+        "hole_x": 20,
+        "hole_y": 15
+      },
+      "model_inputs_mm": {
+        "length": 80,
+        "width": 50,
+        "thickness": 8,
+        "diameter": 14,
+        "hole_x": 25,
+        "hole_y": 15
+      },
+      "volume_mm3": 30768.49567979285,
+      "elapsed_s": 0.0683,
+      "matches_expected_verdict": true
+    }
+  ]
+}

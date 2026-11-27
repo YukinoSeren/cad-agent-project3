@@ -1,0 +1,153 @@
+{
+  "sca": "2.3.0.post1",
+  "marimo": "0.26.0",
+  "python": "3.12.13",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "notebook": "offset_plate.py",
+  "runtime": "simplecadapi.runtime.run_notebook",
+  "cache": false,
+  "absolute_tolerance_mm": 0.01,
+  "cases": [
+    {
+      "case": "before",
+      "process_id": 15740,
+      "overrides": {},
+      "step": "before.step",
+      "target_mm": {
+        "length": 80,
+        "width": 50,
+        "thickness": 8,
+        "diameter": 10,
+        "hole_x": 20,
+        "hole_y": 15
+      },
+      "measured_mm": {
+        "length": 80.0,
+        "width": 50.0,
+        "thickness": 8.0,
+        "diameter": 10.0,
+        "hole_x": 20.0,
+        "hole_y": 15.0
+      },
+      "deviation_mm": {
+        "length": 0.0,
+        "width": 0.0,
+        "thickness": 0.0,
+        "diameter": 0.0,
+        "hole_x": 0.0,
+        "hole_y": 0.0
+      },
+      "geometry_checks": {
+        "valid": true,
+        "single_solid": true,
+        "single_cylindrical_wall": true,
+        "through_hole": true
+      },
+      "failed_checks": [],
+      "accepted": true,
+      "volume_mm3": 31371.681469282106,
+      "expected_failures": [],
+      "matches_expected_verdict": true,
+      "runtime_warnings": [
+        "simplecadapi's notebook runtime was checked against marimo 0.25, found 0.26.0; cell caching or source positions may misbehave."
+      ]
+    },
+    {
+      "case": "after",
+      "process_id": 23628,
+      "overrides": {
+        "hole_d": 14
+      },
+      "step": "after.step",
+      "target_mm": {
+        "length": 80,
+        "width": 50,
+        "thickness": 8,
+        "diameter": 14,
+        "hole_x": 20,
+        "hole_y": 15
+      },
+      "measured_mm": {
+        "length": 80.0,
+        "width": 50.0,
+        "thickness": 8.0,
+        "diameter": 14.0,
+        "hole_x": 20.0,
+        "hole_y": 15.0
+      },
+      "deviation_mm": {
+        "length": 0.0,
+        "width": 0.0,
+        "thickness": 0.0,
+        "diameter": 0.0,
+        "hole_x": 0.0,
+        "hole_y": 0.0
+      },
+      "geometry_checks": {
+        "valid": true,
+        "single_solid": true,
+        "single_cylindrical_wall": true,
+        "through_hole": true
+      },
+      "failed_checks": [],
+      "accepted": true,
+      "volume_mm3": 30768.49567979288,
+      "expected_failures": [],
+      "matches_expected_verdict": true,
+      "runtime_warnings": [
+        "simplecadapi's notebook runtime was checked against marimo 0.25, found 0.26.0; cell caching or source positions may misbehave."
+      ]
+    },
+    {
+      "case": "off_target",
+      "process_id": 17236,
+      "overrides": {
+        "hole_d": 14,
+        "hole_x": 25
+      },
+      "step": "off_target.step",
+      "target_mm": {
+        "length": 80,
+        "width": 50,
+        "thickness": 8,
+        "diameter": 14,
+        "hole_x": 20,
+        "hole_y": 15
+      },
+      "measured_mm": {
+        "length": 80.0,
+        "width": 50.0,
+        "thickness": 8.0,
+        "diameter": 14.0,
+        "hole_x": 25.0,
+        "hole_y": 15.0
+      },
+      "deviation_mm": {
+        "length": 0.0,
+        "width": 0.0,
+        "thickness": 0.0,
+        "diameter": 0.0,
+        "hole_x": 5.0,
+        "hole_y": 0.0
+      },
+      "geometry_checks": {
+        "valid": true,
+        "single_solid": true,
+        "single_cylindrical_wall": true,
+        "through_hole": true
+      },
+      "failed_checks": [
+        "hole_x"
+      ],
+      "accepted": false,
+      "volume_mm3": 30768.49567979285,
+      "expected_failures": [
+        "hole_x"
+      ],
+      "matches_expected_verdict": true,
+      "runtime_warnings": [
+        "simplecadapi's notebook runtime was checked against marimo 0.25, found 0.26.0; cell caching or source positions may misbehave."
+      ]
+    }
+  ]
+}

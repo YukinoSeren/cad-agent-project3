@@ -1,0 +1,522 @@
+{
+  "data_kind": "synthetic_review_data",
+  "interface_version": "0.1",
+  "attempt_results": [
+    {
+      "key": {"run_id": "run-01", "attempt": 1, "snapshot_id": "snap-01", "plan_id": "plan-01-1"},
+      "execution": {
+        "status": "step_ready",
+        "source_ref": "runs/run-01/attempt-1/notebook.py",
+        "params_ref": "runs/run-01/attempt-1/params.json",
+        "actual_parameters_mm": {"length": 80, "width": 50, "thickness": 8, "diameter": 10, "hole_x": 20, "hole_y": 15},
+        "step_ref": "runs/run-01/attempt-1/model.step",
+        "log_ref": "runs/run-01/attempt-1/execution.jsonl",
+        "post_boolean": [{"step_id": "result", "valid": true, "closed": true, "positive_volume": true}],
+        "error": null
+      },
+      "report": {
+        "status": "passed",
+        "stage": "step_readback",
+        "report_ref": "runs/run-01/attempt-1/report.json",
+        "step_ref": "runs/run-01/attempt-1/model.step",
+        "brep_ref": "runs/run-01/attempt-1/brep.json",
+        "topology": {"solid_count": 1, "valid": true, "closed": true, "positive_volume": true},
+        "checks": [
+          {
+            "constraint_id": "length",
+            "measurement_id": "projected_span",
+            "criterion": {"mode": "within", "value": 80, "tolerance": 0.01},
+            "unit": "mm",
+            "actual": 80,
+            "delta": 0,
+            "status": "passed",
+            "code": null,
+            "evidence_keys": ["selections.body"]
+          },
+          {
+            "constraint_id": "width",
+            "measurement_id": "projected_span",
+            "criterion": {"mode": "within", "value": 50, "tolerance": 0.01},
+            "unit": "mm",
+            "actual": 50,
+            "delta": 0,
+            "status": "passed",
+            "code": null,
+            "evidence_keys": ["selections.body"]
+          },
+          {
+            "constraint_id": "thickness",
+            "measurement_id": "projected_span",
+            "criterion": {"mode": "within", "value": 8, "tolerance": 0.01},
+            "unit": "mm",
+            "actual": 8,
+            "delta": 0,
+            "status": "passed",
+            "code": null,
+            "evidence_keys": ["selections.body"]
+          },
+          {
+            "constraint_id": "diameter",
+            "measurement_id": "diameter",
+            "criterion": {"mode": "within", "value": 10, "tolerance": 0.01},
+            "unit": "mm",
+            "actual": 10,
+            "delta": 0,
+            "status": "passed",
+            "code": null,
+            "evidence_keys": ["selections.bore"]
+          },
+          {
+            "constraint_id": "hole_x",
+            "measurement_id": "axis_plane_distance",
+            "criterion": {"mode": "within", "value": 20, "tolerance": 0.01},
+            "unit": "mm",
+            "actual": 20,
+            "delta": 0,
+            "status": "passed",
+            "code": null,
+            "evidence_keys": ["selections.bore", "selections.left"]
+          },
+          {
+            "constraint_id": "hole_y",
+            "measurement_id": "axis_plane_distance",
+            "criterion": {"mode": "within", "value": 15, "tolerance": 0.01},
+            "unit": "mm",
+            "actual": 15,
+            "delta": 0,
+            "status": "passed",
+            "code": null,
+            "evidence_keys": ["selections.bore", "selections.lower"]
+          },
+          {
+            "constraint_id": "through_hole",
+            "measurement_id": "through_hole",
+            "criterion": {"mode": "is_true"},
+            "unit": "bool",
+            "actual": true,
+            "delta": null,
+            "status": "passed",
+            "code": null,
+            "evidence_keys": ["selections.bore", "selections.bottom", "selections.top", "through_hole"]
+          }
+        ],
+        "evidence": {
+          "selections": {
+            "body": {"expected_count": 1, "actual_count": 1, "entity_ids": ["sole-solid"]},
+            "bore": {"expected_count": 1, "actual_count": 1, "entity_ids": ["bore-face"]},
+            "left": {"expected_count": 1, "actual_count": 1, "entity_ids": ["left-face"]},
+            "lower": {"expected_count": 1, "actual_count": 1, "entity_ids": ["lower-face"]},
+            "bottom": {"expected_count": 1, "actual_count": 1, "entity_ids": ["bottom-face"]},
+            "top": {"expected_count": 1, "actual_count": 1, "entity_ids": ["top-face"]}
+          },
+          "through_hole": {
+            "axis_direction": [0, 0, 1],
+            "entry": {
+              "face_id": "bottom-face",
+              "circle_id": "entry-circle",
+              "on_face": true,
+              "adjacent_to_bore": true
+            },
+            "exit": {"face_id": "top-face", "circle_id": "exit-circle", "on_face": true, "adjacent_to_bore": true},
+            "probe": {"start_mm": [20, 15, 0], "end_mm": [20, 15, 8], "min_clear_diameter_mm": 9.99},
+            "kernel_tolerance_mm": 1e-07,
+            "boolean_status": "succeeded",
+            "overlap": "none",
+            "overlap_volume_mm3": 0,
+            "reason": null
+          }
+        },
+        "failure": null
+      }
+    },
+    {
+      "key": {"run_id": "run-02", "attempt": 1, "snapshot_id": "snap-02", "plan_id": "plan-02-1"},
+      "execution": {
+        "status": "step_ready",
+        "source_ref": "runs/run-02/attempt-1/script.py",
+        "params_ref": "runs/run-02/attempt-1/params.json",
+        "actual_parameters_mm": {"length": 80, "width": 50, "thickness": 8, "diameter": 14, "hole_x": 20, "hole_y": 15},
+        "step_ref": "runs/run-02/attempt-1/model.step",
+        "log_ref": "runs/run-02/attempt-1/execution.jsonl",
+        "post_boolean": [{"step_id": "result", "valid": true, "closed": true, "positive_volume": true}],
+        "error": null
+      },
+      "report": {
+        "status": "passed",
+        "stage": "step_readback",
+        "report_ref": "runs/run-02/attempt-1/report.json",
+        "step_ref": "runs/run-02/attempt-1/model.step",
+        "brep_ref": "runs/run-02/attempt-1/brep.json",
+        "topology": {"solid_count": 1, "valid": true, "closed": true, "positive_volume": true},
+        "checks": [
+          {
+            "constraint_id": "length",
+            "measurement_id": "projected_span",
+            "criterion": {"mode": "within", "value": 80, "tolerance": 0.01},
+            "unit": "mm",
+            "actual": 80,
+            "delta": 0,
+            "status": "passed",
+            "code": null,
+            "evidence_keys": ["selections.body"]
+          },
+          {
+            "constraint_id": "width",
+            "measurement_id": "projected_span",
+            "criterion": {"mode": "within", "value": 50, "tolerance": 0.01},
+            "unit": "mm",
+            "actual": 50,
+            "delta": 0,
+            "status": "passed",
+            "code": null,
+            "evidence_keys": ["selections.body"]
+          },
+          {
+            "constraint_id": "thickness",
+            "measurement_id": "projected_span",
+            "criterion": {"mode": "within", "value": 8, "tolerance": 0.01},
+            "unit": "mm",
+            "actual": 8,
+            "delta": 0,
+            "status": "passed",
+            "code": null,
+            "evidence_keys": ["selections.body"]
+          },
+          {
+            "constraint_id": "diameter",
+            "measurement_id": "diameter",
+            "criterion": {"mode": "within", "value": 14, "tolerance": 0.01},
+            "unit": "mm",
+            "actual": 14,
+            "delta": 0,
+            "status": "passed",
+            "code": null,
+            "evidence_keys": ["selections.bore"]
+          },
+          {
+            "constraint_id": "hole_x",
+            "measurement_id": "axis_plane_distance",
+            "criterion": {"mode": "within", "value": 20, "tolerance": 0.01},
+            "unit": "mm",
+            "actual": 20,
+            "delta": 0,
+            "status": "passed",
+            "code": null,
+            "evidence_keys": ["selections.bore", "selections.left"]
+          },
+          {
+            "constraint_id": "hole_y",
+            "measurement_id": "axis_plane_distance",
+            "criterion": {"mode": "within", "value": 15, "tolerance": 0.01},
+            "unit": "mm",
+            "actual": 15,
+            "delta": 0,
+            "status": "passed",
+            "code": null,
+            "evidence_keys": ["selections.bore", "selections.lower"]
+          },
+          {
+            "constraint_id": "through_hole",
+            "measurement_id": "through_hole",
+            "criterion": {"mode": "is_true"},
+            "unit": "bool",
+            "actual": true,
+            "delta": null,
+            "status": "passed",
+            "code": null,
+            "evidence_keys": ["selections.bore", "selections.bottom", "selections.top", "through_hole"]
+          }
+        ],
+        "evidence": {
+          "selections": {
+            "body": {"expected_count": 1, "actual_count": 1, "entity_ids": ["sole-solid"]},
+            "bore": {"expected_count": 1, "actual_count": 1, "entity_ids": ["bore-face"]},
+            "left": {"expected_count": 1, "actual_count": 1, "entity_ids": ["left-face"]},
+            "lower": {"expected_count": 1, "actual_count": 1, "entity_ids": ["lower-face"]},
+            "bottom": {"expected_count": 1, "actual_count": 1, "entity_ids": ["bottom-face"]},
+            "top": {"expected_count": 1, "actual_count": 1, "entity_ids": ["top-face"]}
+          },
+          "through_hole": {
+            "axis_direction": [0, 0, 1],
+            "entry": {
+              "face_id": "bottom-face",
+              "circle_id": "entry-circle",
+              "on_face": true,
+              "adjacent_to_bore": true
+            },
+            "exit": {"face_id": "top-face", "circle_id": "exit-circle", "on_face": true, "adjacent_to_bore": true},
+            "probe": {"start_mm": [20, 15, 0], "end_mm": [20, 15, 8], "min_clear_diameter_mm": 13.99},
+            "kernel_tolerance_mm": 1e-07,
+            "boolean_status": "succeeded",
+            "overlap": "none",
+            "overlap_volume_mm3": 0,
+            "reason": null
+          }
+        },
+        "failure": null
+      }
+    },
+    {
+      "key": {"run_id": "run-03", "attempt": 1, "snapshot_id": "snap-03", "plan_id": "plan-03-1"},
+      "execution": {
+        "status": "step_ready",
+        "source_ref": "runs/run-03/attempt-1/notebook.py",
+        "params_ref": "runs/run-03/attempt-1/params.json",
+        "actual_parameters_mm": {"length": 80, "width": 50, "thickness": 8, "diameter": 14, "hole_x": 25, "hole_y": 15},
+        "step_ref": "runs/run-03/attempt-1/model.step",
+        "log_ref": "runs/run-03/attempt-1/execution.jsonl",
+        "post_boolean": [{"step_id": "result", "valid": true, "closed": true, "positive_volume": true}],
+        "error": null
+      },
+      "report": {
+        "status": "rejected",
+        "stage": "step_readback",
+        "report_ref": "runs/run-03/attempt-1/report.json",
+        "step_ref": "runs/run-03/attempt-1/model.step",
+        "brep_ref": "runs/run-03/attempt-1/brep.json",
+        "topology": {"solid_count": 1, "valid": true, "closed": true, "positive_volume": true},
+        "checks": [
+          {
+            "constraint_id": "length",
+            "measurement_id": "projected_span",
+            "criterion": {"mode": "within", "value": 80, "tolerance": 0.01},
+            "unit": "mm",
+            "actual": 80,
+            "delta": 0,
+            "status": "passed",
+            "code": null,
+            "evidence_keys": ["selections.body"]
+          },
+          {
+            "constraint_id": "width",
+            "measurement_id": "projected_span",
+            "criterion": {"mode": "within", "value": 50, "tolerance": 0.01},
+            "unit": "mm",
+            "actual": 50,
+            "delta": 0,
+            "status": "passed",
+            "code": null,
+            "evidence_keys": ["selections.body"]
+          },
+          {
+            "constraint_id": "thickness",
+            "measurement_id": "projected_span",
+            "criterion": {"mode": "within", "value": 8, "tolerance": 0.01},
+            "unit": "mm",
+            "actual": 8,
+            "delta": 0,
+            "status": "passed",
+            "code": null,
+            "evidence_keys": ["selections.body"]
+          },
+          {
+            "constraint_id": "diameter",
+            "measurement_id": "diameter",
+            "criterion": {"mode": "within", "value": 14, "tolerance": 0.01},
+            "unit": "mm",
+            "actual": 14,
+            "delta": 0,
+            "status": "passed",
+            "code": null,
+            "evidence_keys": ["selections.bore"]
+          },
+          {
+            "constraint_id": "hole_x",
+            "measurement_id": "axis_plane_distance",
+            "criterion": {"mode": "within", "value": 20, "tolerance": 0.01},
+            "unit": "mm",
+            "actual": 25,
+            "delta": 5,
+            "status": "failed",
+            "code": "out_of_tolerance",
+            "evidence_keys": ["selections.bore", "selections.left"]
+          },
+          {
+            "constraint_id": "hole_y",
+            "measurement_id": "axis_plane_distance",
+            "criterion": {"mode": "within", "value": 15, "tolerance": 0.01},
+            "unit": "mm",
+            "actual": 15,
+            "delta": 0,
+            "status": "passed",
+            "code": null,
+            "evidence_keys": ["selections.bore", "selections.lower"]
+          },
+          {
+            "constraint_id": "through_hole",
+            "measurement_id": "through_hole",
+            "criterion": {"mode": "is_true"},
+            "unit": "bool",
+            "actual": true,
+            "delta": null,
+            "status": "passed",
+            "code": null,
+            "evidence_keys": ["selections.bore", "selections.bottom", "selections.top", "through_hole"]
+          }
+        ],
+        "evidence": {
+          "selections": {
+            "body": {"expected_count": 1, "actual_count": 1, "entity_ids": ["sole-solid"]},
+            "bore": {"expected_count": 1, "actual_count": 1, "entity_ids": ["bore-face"]},
+            "left": {"expected_count": 1, "actual_count": 1, "entity_ids": ["left-face"]},
+            "lower": {"expected_count": 1, "actual_count": 1, "entity_ids": ["lower-face"]},
+            "bottom": {"expected_count": 1, "actual_count": 1, "entity_ids": ["bottom-face"]},
+            "top": {"expected_count": 1, "actual_count": 1, "entity_ids": ["top-face"]}
+          },
+          "through_hole": {
+            "axis_direction": [0, 0, 1],
+            "entry": {
+              "face_id": "bottom-face",
+              "circle_id": "entry-circle",
+              "on_face": true,
+              "adjacent_to_bore": true
+            },
+            "exit": {"face_id": "top-face", "circle_id": "exit-circle", "on_face": true, "adjacent_to_bore": true},
+            "probe": {"start_mm": [25, 15, 0], "end_mm": [25, 15, 8], "min_clear_diameter_mm": 13.99},
+            "kernel_tolerance_mm": 1e-07,
+            "boolean_status": "succeeded",
+            "overlap": "none",
+            "overlap_volume_mm3": 0,
+            "reason": null
+          }
+        },
+        "failure": {
+          "code": "geometry_rejected",
+          "failed_ids": ["hole_x"],
+          "cause_key": "geometry:hole_x:bore:out_of_tolerance"
+        }
+      }
+    },
+    {
+      "key": {"run_id": "run-03", "attempt": 2, "snapshot_id": "snap-03", "plan_id": "plan-03-2"},
+      "execution": {
+        "status": "step_ready",
+        "source_ref": "runs/run-03/attempt-2/notebook.py",
+        "params_ref": "runs/run-03/attempt-2/params.json",
+        "actual_parameters_mm": {"length": 80, "width": 50, "thickness": 8, "diameter": 14, "hole_x": 25, "hole_y": 15},
+        "step_ref": "runs/run-03/attempt-2/model.step",
+        "log_ref": "runs/run-03/attempt-2/execution.jsonl",
+        "post_boolean": [{"step_id": "result", "valid": true, "closed": true, "positive_volume": true}],
+        "error": null
+      },
+      "report": {
+        "status": "rejected",
+        "stage": "step_readback",
+        "report_ref": "runs/run-03/attempt-2/report.json",
+        "step_ref": "runs/run-03/attempt-2/model.step",
+        "brep_ref": "runs/run-03/attempt-2/brep.json",
+        "topology": {"solid_count": 1, "valid": true, "closed": true, "positive_volume": true},
+        "checks": [
+          {
+            "constraint_id": "length",
+            "measurement_id": "projected_span",
+            "criterion": {"mode": "within", "value": 80, "tolerance": 0.01},
+            "unit": "mm",
+            "actual": 80,
+            "delta": 0,
+            "status": "passed",
+            "code": null,
+            "evidence_keys": ["selections.body"]
+          },
+          {
+            "constraint_id": "width",
+            "measurement_id": "projected_span",
+            "criterion": {"mode": "within", "value": 50, "tolerance": 0.01},
+            "unit": "mm",
+            "actual": 50,
+            "delta": 0,
+            "status": "passed",
+            "code": null,
+            "evidence_keys": ["selections.body"]
+          },
+          {
+            "constraint_id": "thickness",
+            "measurement_id": "projected_span",
+            "criterion": {"mode": "within", "value": 8, "tolerance": 0.01},
+            "unit": "mm",
+            "actual": 8,
+            "delta": 0,
+            "status": "passed",
+            "code": null,
+            "evidence_keys": ["selections.body"]
+          },
+          {
+            "constraint_id": "diameter",
+            "measurement_id": "diameter",
+            "criterion": {"mode": "within", "value": 14, "tolerance": 0.01},
+            "unit": "mm",
+            "actual": 14,
+            "delta": 0,
+            "status": "passed",
+            "code": null,
+            "evidence_keys": ["selections.bore"]
+          },
+          {
+            "constraint_id": "hole_x",
+            "measurement_id": "axis_plane_distance",
+            "criterion": {"mode": "within", "value": 20, "tolerance": 0.01},
+            "unit": "mm",
+            "actual": 25,
+            "delta": 5,
+            "status": "failed",
+            "code": "out_of_tolerance",
+            "evidence_keys": ["selections.bore", "selections.left"]
+          },
+          {
+            "constraint_id": "hole_y",
+            "measurement_id": "axis_plane_distance",
+            "criterion": {"mode": "within", "value": 15, "tolerance": 0.01},
+            "unit": "mm",
+            "actual": 15,
+            "delta": 0,
+            "status": "passed",
+            "code": null,
+            "evidence_keys": ["selections.bore", "selections.lower"]
+          },
+          {
+            "constraint_id": "through_hole",
+            "measurement_id": "through_hole",
+            "criterion": {"mode": "is_true"},
+            "unit": "bool",
+            "actual": true,
+            "delta": null,
+            "status": "passed",
+            "code": null,
+            "evidence_keys": ["selections.bore", "selections.bottom", "selections.top", "through_hole"]
+          }
+        ],
+        "evidence": {
+          "selections": {
+            "body": {"expected_count": 1, "actual_count": 1, "entity_ids": ["sole-solid"]},
+            "bore": {"expected_count": 1, "actual_count": 1, "entity_ids": ["bore-face"]},
+            "left": {"expected_count": 1, "actual_count": 1, "entity_ids": ["left-face"]},
+            "lower": {"expected_count": 1, "actual_count": 1, "entity_ids": ["lower-face"]},
+            "bottom": {"expected_count": 1, "actual_count": 1, "entity_ids": ["bottom-face"]},
+            "top": {"expected_count": 1, "actual_count": 1, "entity_ids": ["top-face"]}
+          },
+          "through_hole": {
+            "axis_direction": [0, 0, 1],
+            "entry": {
+              "face_id": "bottom-face",
+              "circle_id": "entry-circle",
+              "on_face": true,
+              "adjacent_to_bore": true
+            },
+            "exit": {"face_id": "top-face", "circle_id": "exit-circle", "on_face": true, "adjacent_to_bore": true},
+            "probe": {"start_mm": [25, 15, 0], "end_mm": [25, 15, 8], "min_clear_diameter_mm": 13.99},
+            "kernel_tolerance_mm": 1e-07,
+            "boolean_status": "succeeded",
+            "overlap": "none",
+            "overlap_volume_mm3": 0,
+            "reason": null
+          }
+        },
+        "failure": {
+          "code": "geometry_rejected",
+          "failed_ids": ["hole_x"],
+          "cause_key": "geometry:hole_x:bore:out_of_tolerance"
+        }
+      }
+    }
+  ]
+}

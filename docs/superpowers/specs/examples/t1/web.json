@@ -1,0 +1,525 @@
+{
+  "data_kind": "synthetic_review_data",
+  "interface_version": "0.1",
+  "published_versions": [
+    {
+      "version_id": "v1",
+      "key": {"run_id": "run-01", "attempt": 1, "snapshot_id": "snap-01", "plan_id": "plan-01-1"},
+      "base_version_id": null,
+      "source_ref": "runs/run-01/attempt-1/notebook.py",
+      "params_ref": "runs/run-01/attempt-1/params.json",
+      "step_ref": "runs/run-01/attempt-1/model.step",
+      "report_ref": "runs/run-01/attempt-1/report.json",
+      "manifest_ref": "runs/run-01/attempt-1/version-manifest.json",
+      "comparison": {
+        "before_version_id": null,
+        "before_view_ref": null,
+        "after_view_ref": "runs/run-01/attempt-1/after.png",
+        "view_spec": {
+          "direction": [1, -1, 1],
+          "up": [0, 0, 1],
+          "projection": "orthographic",
+          "bounds_mm": {"min": [0, 0, 0], "max": [80, 50, 8]}
+        }
+      }
+    },
+    {
+      "version_id": "v2",
+      "key": {"run_id": "run-02", "attempt": 1, "snapshot_id": "snap-02", "plan_id": "plan-02-1"},
+      "base_version_id": "v1",
+      "source_ref": "runs/run-02/attempt-1/script.py",
+      "params_ref": "runs/run-02/attempt-1/params.json",
+      "step_ref": "runs/run-02/attempt-1/model.step",
+      "report_ref": "runs/run-02/attempt-1/report.json",
+      "manifest_ref": "runs/run-02/attempt-1/version-manifest.json",
+      "comparison": {
+        "before_version_id": "v1",
+        "before_view_ref": "runs/run-02/attempt-1/before.png",
+        "after_view_ref": "runs/run-02/attempt-1/after.png",
+        "view_spec": {
+          "direction": [1, -1, 1],
+          "up": [0, 0, 1],
+          "projection": "orthographic",
+          "bounds_mm": {"min": [0, 0, 0], "max": [80, 50, 8]}
+        }
+      }
+    }
+  ],
+  "trace": [
+    {
+      "operation": "submit",
+      "request": {"session_id": "session-01", "text": "做一块 80×50×8 的板，左边开个通孔"},
+      "response": {"run_id": "run-01", "turn_id": "turn-01", "status": "CLARIFY"}
+    },
+    {
+      "operation": "get_status",
+      "request": {"session_id": "session-01", "run_id": "run-01"},
+      "response": {
+        "run": {
+          "run_id": "run-01",
+          "status": "CLARIFY",
+          "base_version_id": null,
+          "snapshot_id": null,
+          "last_attempt": null,
+          "published_version_id": null,
+          "clarification": {
+            "turn_id": "turn-02",
+            "missing": ["diameter", "hole_x", "hole_y", "unit", "hole_datum"],
+            "question": "尺寸用什么单位？请确认矩形板的长宽厚、孔径、孔心距哪两条边及各距多少，以及通孔贯穿的方向。"
+          },
+          "confirmation": null,
+          "failure": null,
+          "counters": {"executions": 0, "execution_repairs": 0, "geometry_repairs": 0}
+        },
+        "current_version": null
+      }
+    },
+    {
+      "operation": "clarify",
+      "request": {
+        "session_id": "session-01",
+        "run_id": "run-01",
+        "reply_to_turn_id": "turn-02",
+        "text": "尺寸都用 mm；以底面左下角为测量基准，沿 +Z 贯穿；孔心距左边 20 mm、距下边 15 mm，孔径 10 mm。"
+      },
+      "response": {"run_id": "run-01", "turn_id": "turn-03", "status": "CONFIRM"}
+    },
+    {
+      "operation": "get_status",
+      "request": {"session_id": "session-01", "run_id": "run-01"},
+      "response": {
+        "run": {
+          "run_id": "run-01",
+          "status": "CONFIRM",
+          "base_version_id": null,
+          "snapshot_id": null,
+          "last_attempt": null,
+          "published_version_id": null,
+          "clarification": null,
+          "confirmation": {
+            "confirmation_id": "confirm-01",
+            "parameters_mm": {"length": 80, "width": 50, "thickness": 8, "diameter": 10, "hole_x": 20, "hole_y": 15},
+            "frame_id": "plate-xyz",
+            "changed_parameter_ids": ["length", "width", "thickness", "diameter", "hole_x", "hole_y"],
+            "retained_parameter_ids": [],
+            "requirements": [
+              {
+                "id": "req-plate",
+                "turn_id": "turn-01",
+                "quote": "80×50×8 的板",
+                "interpretation": "矩形板长/宽/厚为 80/50/8 mm",
+                "constraint_ids": ["length", "width", "thickness"],
+                "measurement_ids": ["projected_span", "projected_span", "projected_span"]
+              },
+              {
+                "id": "req-through",
+                "turn_id": "turn-01",
+                "quote": "左边开个通孔",
+                "interpretation": "一处偏置通孔，沿 +Z 贯穿",
+                "constraint_ids": ["hole_x", "hole_y", "through_hole"],
+                "measurement_ids": ["axis_plane_distance", "axis_plane_distance", "through_hole"]
+              },
+              {
+                "id": "req-datum",
+                "turn_id": "turn-03",
+                "quote": "尺寸都用 mm；以底面左下角为测量基准，沿 +Z 贯穿",
+                "interpretation": "长度单位 mm；沿板长、板宽取 +X、+Y，沿板厚取 +Z，以左/下边作为孔位基准",
+                "constraint_ids": ["length", "width", "thickness", "diameter", "hole_x", "hole_y", "through_hole"],
+                "measurement_ids": [
+                  "projected_span",
+                  "projected_span",
+                  "projected_span",
+                  "diameter",
+                  "axis_plane_distance",
+                  "axis_plane_distance",
+                  "through_hole"
+                ]
+              },
+              {
+                "id": "req-position",
+                "turn_id": "turn-03",
+                "quote": "孔心距左边 20 mm、距下边 15 mm",
+                "interpretation": "两项孔心距分别以左边、下边为基准",
+                "constraint_ids": ["hole_x", "hole_y"],
+                "measurement_ids": ["axis_plane_distance", "axis_plane_distance"]
+              },
+              {
+                "id": "req-diameter",
+                "turn_id": "turn-03",
+                "quote": "孔径 10 mm",
+                "interpretation": "直径 10 mm，净空直径按孔径下限派生",
+                "constraint_ids": ["diameter", "through_hole"],
+                "measurement_ids": ["diameter", "through_hole"]
+              }
+            ]
+          },
+          "failure": null,
+          "counters": {"executions": 0, "execution_repairs": 0, "geometry_repairs": 0}
+        },
+        "current_version": null
+      }
+    },
+    {
+      "operation": "confirm",
+      "request": {"session_id": "session-01", "run_id": "run-01", "confirmation_id": "confirm-01"},
+      "response": {"run_id": "run-01", "snapshot_id": "snap-01", "status": "BUILD"}
+    },
+    {
+      "operation": "get_status",
+      "request": {"session_id": "session-01", "run_id": "run-01"},
+      "response": {
+        "run": {
+          "run_id": "run-01",
+          "status": "DELIVER",
+          "base_version_id": null,
+          "snapshot_id": "snap-01",
+          "last_attempt": 1,
+          "published_version_id": "v1",
+          "clarification": null,
+          "confirmation": null,
+          "failure": null,
+          "counters": {"executions": 1, "execution_repairs": 0, "geometry_repairs": 0}
+        },
+        "current_version": {
+          "version_id": "v1",
+          "snapshot_id": "snap-01",
+          "parameters_mm": {"length": 80, "width": 50, "thickness": 8, "diameter": 10, "hole_x": 20, "hole_y": 15},
+          "after_view_ref": "runs/run-01/attempt-1/after.png"
+        }
+      }
+    },
+    {
+      "operation": "download",
+      "request": {"session_id": "session-01", "version_id": "v1", "kind": "step"},
+      "response": {"version_id": "v1", "kind": "step", "artifact_ref": "runs/run-01/attempt-1/model.step"}
+    },
+    {
+      "operation": "revise",
+      "request": {"session_id": "session-01", "base_version_id": "v1", "text": "只把孔径改成 14 mm，其他不变。"},
+      "response": {"run_id": "run-02", "turn_id": "turn-04", "status": "CONFIRM"}
+    },
+    {
+      "operation": "get_status",
+      "request": {"session_id": "session-01", "run_id": "run-02"},
+      "response": {
+        "run": {
+          "run_id": "run-02",
+          "status": "CONFIRM",
+          "base_version_id": "v1",
+          "snapshot_id": null,
+          "last_attempt": null,
+          "published_version_id": null,
+          "clarification": null,
+          "confirmation": {
+            "confirmation_id": "confirm-02",
+            "parameters_mm": {"length": 80, "width": 50, "thickness": 8, "diameter": 14, "hole_x": 20, "hole_y": 15},
+            "frame_id": "plate-xyz",
+            "changed_parameter_ids": ["diameter"],
+            "retained_parameter_ids": ["length", "width", "thickness", "hole_x", "hole_y"],
+            "requirements": [
+              {
+                "id": "req-plate",
+                "turn_id": "turn-01",
+                "quote": "80×50×8 的板",
+                "interpretation": "矩形板长/宽/厚为 80/50/8 mm",
+                "constraint_ids": ["length", "width", "thickness"],
+                "measurement_ids": ["projected_span", "projected_span", "projected_span"]
+              },
+              {
+                "id": "req-through",
+                "turn_id": "turn-01",
+                "quote": "左边开个通孔",
+                "interpretation": "一处偏置通孔，沿 +Z 贯穿",
+                "constraint_ids": ["hole_x", "hole_y", "through_hole"],
+                "measurement_ids": ["axis_plane_distance", "axis_plane_distance", "through_hole"]
+              },
+              {
+                "id": "req-datum",
+                "turn_id": "turn-03",
+                "quote": "尺寸都用 mm；以底面左下角为测量基准，沿 +Z 贯穿",
+                "interpretation": "长度单位 mm；沿板长、板宽取 +X、+Y，沿板厚取 +Z，以左/下边作为孔位基准",
+                "constraint_ids": ["length", "width", "thickness", "diameter", "hole_x", "hole_y", "through_hole"],
+                "measurement_ids": [
+                  "projected_span",
+                  "projected_span",
+                  "projected_span",
+                  "diameter",
+                  "axis_plane_distance",
+                  "axis_plane_distance",
+                  "through_hole"
+                ]
+              },
+              {
+                "id": "req-position",
+                "turn_id": "turn-03",
+                "quote": "孔心距左边 20 mm、距下边 15 mm",
+                "interpretation": "两项孔心距分别以左边、下边为基准",
+                "constraint_ids": ["hole_x", "hole_y"],
+                "measurement_ids": ["axis_plane_distance", "axis_plane_distance"]
+              },
+              {
+                "id": "req-diameter",
+                "turn_id": "turn-04",
+                "quote": "只把孔径改成 14 mm",
+                "interpretation": "只改孔径至 14 mm，重算净空直径，其余约束继承",
+                "constraint_ids": ["diameter", "through_hole"],
+                "measurement_ids": ["diameter", "through_hole"]
+              }
+            ]
+          },
+          "failure": null,
+          "counters": {"executions": 0, "execution_repairs": 0, "geometry_repairs": 0}
+        },
+        "current_version": {
+          "version_id": "v1",
+          "snapshot_id": "snap-01",
+          "parameters_mm": {"length": 80, "width": 50, "thickness": 8, "diameter": 10, "hole_x": 20, "hole_y": 15},
+          "after_view_ref": "runs/run-01/attempt-1/after.png"
+        }
+      }
+    },
+    {
+      "operation": "confirm",
+      "request": {"session_id": "session-01", "run_id": "run-02", "confirmation_id": "confirm-02"},
+      "response": {"run_id": "run-02", "snapshot_id": "snap-02", "status": "BUILD"}
+    },
+    {
+      "operation": "get_status",
+      "request": {"session_id": "session-01", "run_id": "run-02"},
+      "response": {
+        "run": {
+          "run_id": "run-02",
+          "status": "DELIVER",
+          "base_version_id": "v1",
+          "snapshot_id": "snap-02",
+          "last_attempt": 1,
+          "published_version_id": "v2",
+          "clarification": null,
+          "confirmation": null,
+          "failure": null,
+          "counters": {"executions": 1, "execution_repairs": 0, "geometry_repairs": 0}
+        },
+        "current_version": {
+          "version_id": "v2",
+          "snapshot_id": "snap-02",
+          "parameters_mm": {"length": 80, "width": 50, "thickness": 8, "diameter": 14, "hole_x": 20, "hole_y": 15},
+          "after_view_ref": "runs/run-02/attempt-1/after.png"
+        }
+      }
+    },
+    {
+      "operation": "download",
+      "request": {"session_id": "session-01", "version_id": "v2", "kind": "step"},
+      "response": {"version_id": "v2", "kind": "step", "artifact_ref": "runs/run-02/attempt-1/model.step"}
+    },
+    {
+      "operation": "revise",
+      "request": {"session_id": "session-01", "base_version_id": "v2", "text": "按当前已验收版的约束重建一次，所有尺寸和孔位不变。"},
+      "response": {"run_id": "run-03", "turn_id": "turn-05", "status": "CONFIRM"}
+    },
+    {
+      "operation": "get_status",
+      "request": {"session_id": "session-01", "run_id": "run-03"},
+      "response": {
+        "run": {
+          "run_id": "run-03",
+          "status": "CONFIRM",
+          "base_version_id": "v2",
+          "snapshot_id": null,
+          "last_attempt": null,
+          "published_version_id": null,
+          "clarification": null,
+          "confirmation": {
+            "confirmation_id": "confirm-03",
+            "parameters_mm": {"length": 80, "width": 50, "thickness": 8, "diameter": 14, "hole_x": 20, "hole_y": 15},
+            "frame_id": "plate-xyz",
+            "changed_parameter_ids": [],
+            "retained_parameter_ids": ["length", "width", "thickness", "diameter", "hole_x", "hole_y"],
+            "requirements": [
+              {
+                "id": "req-plate",
+                "turn_id": "turn-01",
+                "quote": "80×50×8 的板",
+                "interpretation": "矩形板长/宽/厚为 80/50/8 mm",
+                "constraint_ids": ["length", "width", "thickness"],
+                "measurement_ids": ["projected_span", "projected_span", "projected_span"]
+              },
+              {
+                "id": "req-through",
+                "turn_id": "turn-01",
+                "quote": "左边开个通孔",
+                "interpretation": "一处偏置通孔，沿 +Z 贯穿",
+                "constraint_ids": ["hole_x", "hole_y", "through_hole"],
+                "measurement_ids": ["axis_plane_distance", "axis_plane_distance", "through_hole"]
+              },
+              {
+                "id": "req-datum",
+                "turn_id": "turn-03",
+                "quote": "尺寸都用 mm；以底面左下角为测量基准，沿 +Z 贯穿",
+                "interpretation": "长度单位 mm；沿板长、板宽取 +X、+Y，沿板厚取 +Z，以左/下边作为孔位基准",
+                "constraint_ids": ["length", "width", "thickness", "diameter", "hole_x", "hole_y", "through_hole"],
+                "measurement_ids": [
+                  "projected_span",
+                  "projected_span",
+                  "projected_span",
+                  "diameter",
+                  "axis_plane_distance",
+                  "axis_plane_distance",
+                  "through_hole"
+                ]
+              },
+              {
+                "id": "req-position",
+                "turn_id": "turn-03",
+                "quote": "孔心距左边 20 mm、距下边 15 mm",
+                "interpretation": "两项孔心距分别以左边、下边为基准",
+                "constraint_ids": ["hole_x", "hole_y"],
+                "measurement_ids": ["axis_plane_distance", "axis_plane_distance"]
+              },
+              {
+                "id": "req-diameter",
+                "turn_id": "turn-04",
+                "quote": "只把孔径改成 14 mm",
+                "interpretation": "只改孔径至 14 mm，重算净空直径，其余约束继承",
+                "constraint_ids": ["diameter", "through_hole"],
+                "measurement_ids": ["diameter", "through_hole"]
+              },
+              {
+                "id": "req-rebuild",
+                "turn_id": "turn-05",
+                "quote": "按当前已验收版的约束重建一次，所有尺寸和孔位不变。",
+                "interpretation": "重建同一确认几何，保留全部尺寸和通孔约束",
+                "constraint_ids": ["length", "width", "thickness", "diameter", "hole_x", "hole_y", "through_hole"],
+                "measurement_ids": [
+                  "projected_span",
+                  "projected_span",
+                  "projected_span",
+                  "diameter",
+                  "axis_plane_distance",
+                  "axis_plane_distance",
+                  "through_hole"
+                ]
+              }
+            ]
+          },
+          "failure": null,
+          "counters": {"executions": 0, "execution_repairs": 0, "geometry_repairs": 0}
+        },
+        "current_version": {
+          "version_id": "v2",
+          "snapshot_id": "snap-02",
+          "parameters_mm": {"length": 80, "width": 50, "thickness": 8, "diameter": 14, "hole_x": 20, "hole_y": 15},
+          "after_view_ref": "runs/run-02/attempt-1/after.png"
+        }
+      }
+    },
+    {
+      "operation": "confirm",
+      "request": {"session_id": "session-01", "run_id": "run-03", "confirmation_id": "confirm-03"},
+      "response": {"run_id": "run-03", "snapshot_id": "snap-03", "status": "BUILD"}
+    },
+    {
+      "operation": "get_status",
+      "request": {"session_id": "session-01", "run_id": "run-03"},
+      "response": {
+        "run": {
+          "run_id": "run-03",
+          "status": "REPAIR",
+          "base_version_id": "v2",
+          "snapshot_id": "snap-03",
+          "last_attempt": 1,
+          "published_version_id": null,
+          "clarification": null,
+          "confirmation": null,
+          "failure": {
+            "kind": "geometry_rejection",
+            "code": "geometry_rejected",
+            "details": [{"constraint_id": "hole_x", "unit": "mm", "target": 20, "actual": 25, "delta": 5, "code": "out_of_tolerance"}],
+            "report_ref": "runs/run-03/attempt-1/report.json"
+          },
+          "counters": {"executions": 1, "execution_repairs": 0, "geometry_repairs": 0}
+        },
+        "current_version": {
+          "version_id": "v2",
+          "snapshot_id": "snap-02",
+          "parameters_mm": {"length": 80, "width": 50, "thickness": 8, "diameter": 14, "hole_x": 20, "hole_y": 15},
+          "after_view_ref": "runs/run-02/attempt-1/after.png"
+        }
+      }
+    },
+    {
+      "operation": "get_status",
+      "request": {"session_id": "session-01", "run_id": "run-03"},
+      "response": {
+        "run": {
+          "run_id": "run-03",
+          "status": "FAILED",
+          "base_version_id": "v2",
+          "snapshot_id": "snap-03",
+          "last_attempt": 2,
+          "published_version_id": null,
+          "clarification": null,
+          "confirmation": null,
+          "failure": {
+            "kind": "geometry_rejection",
+            "code": "geometry_rejected",
+            "details": [{"constraint_id": "hole_x", "unit": "mm", "target": 20, "actual": 25, "delta": 5, "code": "out_of_tolerance"}],
+            "report_ref": "runs/run-03/attempt-2/report.json",
+            "terminal_reason": "same_cause_twice"
+          },
+          "counters": {"executions": 2, "execution_repairs": 0, "geometry_repairs": 1}
+        },
+        "current_version": {
+          "version_id": "v2",
+          "snapshot_id": "snap-02",
+          "parameters_mm": {"length": 80, "width": 50, "thickness": 8, "diameter": 14, "hole_x": 20, "hole_y": 15},
+          "after_view_ref": "runs/run-02/attempt-1/after.png"
+        }
+      }
+    },
+    {
+      "operation": "download",
+      "request": {"session_id": "session-01", "version_id": "v2", "kind": "step"},
+      "response": {"version_id": "v2", "kind": "step", "artifact_ref": "runs/run-02/attempt-1/model.step"}
+    },
+    {
+      "operation": "download",
+      "request": {"session_id": "session-01", "version_id": "v2", "kind": "source"},
+      "response": {"version_id": "v2", "kind": "source", "artifact_ref": "runs/run-02/attempt-1/script.py"}
+    },
+    {
+      "operation": "download",
+      "request": {"session_id": "session-01", "version_id": "v2", "kind": "params"},
+      "response": {"version_id": "v2", "kind": "params", "artifact_ref": "runs/run-02/attempt-1/params.json"}
+    },
+    {
+      "operation": "get_status",
+      "request": {"session_id": "session-01", "run_id": "run-01"},
+      "response": {
+        "run": {
+          "run_id": "run-01",
+          "status": "DELIVER",
+          "base_version_id": null,
+          "snapshot_id": "snap-01",
+          "last_attempt": 1,
+          "published_version_id": "v1",
+          "clarification": null,
+          "confirmation": null,
+          "failure": null,
+          "counters": {"executions": 1, "execution_repairs": 0, "geometry_repairs": 0}
+        },
+        "current_version": {
+          "version_id": "v2",
+          "snapshot_id": "snap-02",
+          "parameters_mm": {"length": 80, "width": 50, "thickness": 8, "diameter": 14, "hole_x": 20, "hole_y": 15},
+          "after_view_ref": "runs/run-02/attempt-1/after.png"
+        }
+      }
+    },
+    {
+      "operation": "download",
+      "request": {"session_id": "session-01", "version_id": "v1", "kind": "step"},
+      "response": {"version_id": "v1", "kind": "step", "artifact_ref": "runs/run-01/attempt-1/model.step"}
+    }
+  ]
+}

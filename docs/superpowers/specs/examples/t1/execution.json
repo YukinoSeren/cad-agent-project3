@@ -1,0 +1,42 @@
+{
+  "data_kind": "synthetic_review_data",
+  "interface_version": "0.1",
+  "requests": [
+    {
+      "key": {"run_id": "run-01", "attempt": 1, "snapshot_id": "snap-01", "plan_id": "plan-01-1"},
+      "source_kind": "notebook",
+      "source_ref": "runs/run-01/attempt-1/notebook.py",
+      "params_ref": "runs/run-01/attempt-1/params.json",
+      "actual_parameters_mm": {"length": 80, "width": 50, "thickness": 8, "diameter": 10, "hole_x": 20, "hole_y": 15},
+      "step_ref": "runs/run-01/attempt-1/model.step",
+      "preview_baseline": null
+    },
+    {
+      "key": {"run_id": "run-02", "attempt": 1, "snapshot_id": "snap-02", "plan_id": "plan-02-1"},
+      "source_kind": "script",
+      "source_ref": "runs/run-02/attempt-1/script.py",
+      "params_ref": "runs/run-02/attempt-1/params.json",
+      "actual_parameters_mm": {"length": 80, "width": 50, "thickness": 8, "diameter": 14, "hole_x": 20, "hole_y": 15},
+      "step_ref": "runs/run-02/attempt-1/model.step",
+      "preview_baseline": {"version_id": "v1", "step_ref": "runs/run-01/attempt-1/model.step"}
+    },
+    {
+      "key": {"run_id": "run-03", "attempt": 1, "snapshot_id": "snap-03", "plan_id": "plan-03-1"},
+      "source_kind": "notebook",
+      "source_ref": "runs/run-03/attempt-1/notebook.py",
+      "params_ref": "runs/run-03/attempt-1/params.json",
+      "actual_parameters_mm": {"length": 80, "width": 50, "thickness": 8, "diameter": 14, "hole_x": 25, "hole_y": 15},
+      "step_ref": "runs/run-03/attempt-1/model.step",
+      "preview_baseline": {"version_id": "v2", "step_ref": "runs/run-02/attempt-1/model.step"}
+    },
+    {
+      "key": {"run_id": "run-03", "attempt": 2, "snapshot_id": "snap-03", "plan_id": "plan-03-2"},
+      "source_kind": "notebook",
+      "source_ref": "runs/run-03/attempt-2/notebook.py",
+      "params_ref": "runs/run-03/attempt-2/params.json",
+      "actual_parameters_mm": {"length": 80, "width": 50, "thickness": 8, "diameter": 14, "hole_x": 25, "hole_y": 15},
+      "step_ref": "runs/run-03/attempt-2/model.step",
+      "preview_baseline": {"version_id": "v2", "step_ref": "runs/run-02/attempt-1/model.step"}
+    }
+  ]
+}

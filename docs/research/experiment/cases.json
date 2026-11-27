@@ -1,0 +1,10 @@
+{
+  "unit": "mm",
+  "absolute_tolerance_mm": 0.01,
+  "confirmed": {"length":80,"width":50,"thickness":8,"diameter":10,"hole_x":20,"hole_y":15},
+  "cases": [
+    {"name":"before","confirmed_changes":{},"model_overrides":{},"expected_failures":[]},
+    {"name":"after","confirmed_changes":{"diameter":14},"model_overrides":{},"expected_failures":[]},
+    {"name":"off_target","confirmed_changes":{"diameter":14},"model_overrides":{"hole_x":25},"expected_failures":["hole_x"]}
+  ]
+}
